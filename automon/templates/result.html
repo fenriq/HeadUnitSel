@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block topleft %}
+<div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Были получены следующие параметры:</h1>
+        <p class="col-lg-10 fs-4">{{ output }}</p>
+      </div>
+{% endblock %}
+{% block topright %}
+<div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" method="POST">
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            {{ params }}
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Пересчитать</button>
+          <hr class="my-4">
+          <small class="text-body-secondary">Пересчитать результаты подбора <a href="">Сброс</a></small>
+        </form>
+      </div>
+{% endblock %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+         {% for n in hudata %}
+        <div class="col">
+          <div class="card shadow-sm">
+              <img src="{{ n.pic.url }}">
+            <div class="card-body">
+              <p class="card-text">{{ n.name }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">{{ n.osys }}</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Смотреть</button>
+                </div>
+                <small class="text-body-secondary">{{ n.gu_diag }} дюймов</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
